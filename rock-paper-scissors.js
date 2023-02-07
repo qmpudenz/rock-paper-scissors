@@ -1,72 +1,137 @@
-// Completed - GOAL 1: Create a function that plays a single round of Rock Paper Scissors, 
-// using computerSelection and playerSelection as parameters. //
-// Completed - GOAL 2: Return a string that declares a winner. //
-
-// Create an array of possible choices in the game. //
 
 var choices = ["rock", "paper", "scissors"];
 
-// Create a function to randomly select a choice from the array on behalf of the computer player. //
+const btn1 = document.getElementById('btn1');
+const btn2 = document.getElementById('btn2');
+const btn3 = document.getElementById('btn3');
 
-const computerSelection = computerPlay(); // I could probably avoid this line by renaming this. //
+var playerScore = 0;
+var computerScore = 0;
+var draws = 0;
+
+document.getElementById('playerScore').innerHTML = playerScore;
+document.getElementById('computerScore').innerHTML = computerScore;
+document.getElementById('draws').innerHTML = draws;
 
 
+const computerSelection = computerPlay();
 function computerPlay() {
     return (choices[Math.floor(Math.random() * 3)]);
 };
 
-// We need something that gets the input ready for the playRound function. //
 
-const playerSelection = userInput => {
-    userInput = userInput.toLowerCase();
-    if (userInput === 'rock' || userInput === 'paper' || userInput === 'scissors') {
-        return userInput;
-    } else {
-        console.log('Error, please select type rock, paper, or scissors.')
+btn1.addEventListener('click', () => {
+    let playerSelection = choices[0];
+
+    for (let i = 0; i < 1; i++) {
+        let computerSelection = computerPlay();
+        let roundResult = (playRound(playerSelection, computerSelection));
+        console.log(roundResult);
+        game(roundResult);
+        console.log("You selected " + playerSelection);
+        console.log("The computer selected " + computerSelection);
+        console.log("Your score is " + playerScore);
+        console.log("The computer's score is " + computerScore);
+        console.log("There have been " + draws + " draws.");
+        console.log("--------------------------------------");
     };
-}
+});
 
-console.log(playerSelection('Rock')); // To test .toLowerCase. //
-console.log(playerSelection('potato')); // To test error message. //
-console.log(computerSelection); // Log of computer's selection to make sure next test was correct. //
-console.log(playRound(playerSelection('Rock'), computerSelection)); // Test outcome based one playerSelection being rock. I still need to figure out how to input other choices. //
+btn2.addEventListener('click', () => {
+    let playerSelection = choices[1];
+ 
+    for (let i = 0; i < 1; i++) {
+        let computerSelection = computerPlay();
+        let roundResult = (playRound(playerSelection, computerSelection));
+        console.log(roundResult);
+        game(roundResult);
+        console.log("You selected " + playerSelection);
+        console.log("The computer selected " + computerSelection);
+        console.log("Your score is " + playerScore);
+        console.log("The computer's score is " + computerScore);
+        console.log("There have been " + draws + " draws.");
+        console.log("--------------------------------------");
+    };
+});
 
-// Considering my options at this point, it seems like I an use if statements and || to solve my problem. It seems like switch is another way to achieve this. I'm not sure how to implement .equals, but that might help clean things up as well. //
-// When considering if statements, I still have options: I can base it on playerSelection, the outcomes, or even associate each playerSelection with a losing condition. //
+btn3.addEventListener('click', () => {
+    let playerSelection = choices[2];
+ 
+    for (let i = 0; i < 1; i++) {
+        let computerSelection = computerPlay();
+        let roundResult = (playRound(playerSelection, computerSelection));
+        console.log(roundResult);
+        game(roundResult);
+        console.log("You selected " + playerSelection);
+        console.log("The computer selected " + computerSelection);
+        console.log("Your score is " + playerScore);
+        console.log("The computer's score is " + computerScore);
+        console.log("There have been " + draws + " draws.");
+        console.log("--------------------------------------");
+    };
+});
 
 
-// For now, I'm going to group if statements starting with the player's selection, using the function playRound. //
-function playRound(userInput, computerSelection) {   
+let playerWinRound = "You won this round!";
+let computerWinRound = "Computer won this round!";
+let draw = "Draw!";
+let playerWin = "You've won the game!";
+let computerWin = "Oh no, the computer won the game!";
 
-            if (userInput === computerSelection) {
-                console.log("Tie.");
+
+function playRound(playerSelection, computerSelection) {   
+
+
+
+            if (playerSelection === computerSelection) {
+                return draw;
                 }
 
-            else if (userInput === "rock") {
+            else if (playerSelection === "rock") {
                 if (computerSelection === "paper") {
-                    console.log("You lose.");
+                    return computerWinRound;
                     }
                 else if (computerSelection === "scissors") {
-                    console.log("You win.");
+                    return playerWinRound;
                     }
             }
 
-            else if (userInput === "paper") {
+            else if (playerSelection === "paper") {
                 if (computerSelection === "rock") {
-                    console.log("You win.");
+                    return playerWinRound;
                 }
                 else if (computerSelection === "scissors") {
-                    console.log("You lose.");
+                    return computerWinRound;
                 }
             }
 
-            else if (userInput === "scissors") {
+            else if (playerSelection === "scissors") {
                 if (computerSelection === "rock") {
-                    console.log("You lose.");
+                    return computerWinRound;
                 }
                 else if (computerSelection === "paper") {
-                    console.log("You win.")
+                    return playerWinRound;
                 }
             }
-    
+
         }
+
+
+
+    
+
+
+    function game(result) {
+        if (result === playerWinRound) {
+            playerScore++;
+            document.getElementById('playerScore').innerHTML = playerScore;
+        } else if (result === draw) {
+            draws++;
+            document.getElementById('draws').innerHTML = draws;
+        } else {
+            computerScore++;
+            document.getElementById('computerScore').innerHTML = computerScore;
+        }
+    }
+         
+
